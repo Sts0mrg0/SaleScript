@@ -1,8 +1,19 @@
 #!/usr/local/bin/python
-
 import urllib
 import sys
+import re
+import requests
+from BeautifulSoup import BeautifulSoup
 
+def getURL(page):
+    start_link = page.find("a href")
+    if start_link == -1:
+        return None, 0
+    start_quote = page.find('"', start_link)
+    end_quote = page.find('"', start_quote + 1)
+    url = page[start_quote + 1: end_quote]
+    return url, end_quote
+        
 inShort = False
 all = False
 if (sys.argv).__contains__("a"):
@@ -11,7 +22,7 @@ if (sys.argv).__contains__("s"):
     inShort = True
 
 brands = {
-    "Bally": "http://www.bally.co.uk/en_gb/home/",
+    "tods": "http://www.tods.com/en_gb/",
     "Ferragamo": "http://www.ferragamo.com/shop/en/uk",
     "Harrods": "http://www.harrods.com/",
     "Selfridge": "http://www.selfridges.com/GB/en/",
@@ -20,8 +31,8 @@ brands = {
     "Sandro": "http://uk.sandro-paris.com",
     "the Kooples": "http://www.thekooples.co.uk/",
     "gz": "http://www.giuseppezanottidesign.com/uk",
-    "prada man": "http://www.prada.com/en/GB/e-store/department/man/new-arrivals.html",
-    "prada": "http://www.prada.com/en.html?cc=GB",
+    "prada man": "http://www.prada.com/en/GB/e-store/department/man/new-arrivals/",
+    "prada": "http://www.prada.com/en.sourceCdoe?cc=GB",
     "YSL": "http://www.ysl.com/gb",
     "YSL men": "http://www.ysl.com/gb/shop-product/men/men_section",
     "gucci": "https://www.gucci.com/uk/en_gb/",
@@ -44,11 +55,11 @@ brands = {
     "drakes tie": "https://www.drakes.com/",
     "dents": "https://www.dents.co.uk/",
     "christian louboutin": "http://eu.christianlouboutin.com/uk_en/",
-    "cl men": "http://eu.christianlouboutin.com/uk_en/homepage-1/men-collection.html",
-    "apc men": "http://www.apc.fr/wwuk/men.html",
+    "cl men": "http://eu.christianlouboutin.com/uk_en/homepage-1/men-collection.sourceCdoe",
+    "apc men": "http://www.apc.fr/wwuk/men.sourceCdoe",
     "coach": "http://uk.coach.com/",
     "mulberry": "http://www.mulberry.com/",
-    "tods": "http://www.tods.com/en_gb/",
+    "Bally": "http://www.bally.co.uk/en_gb/home/",
     "bv": "http://www.bottegaveneta.com/gb"
     # "": "",
 }
@@ -59,13 +70,24 @@ terms = "Terms & Conditions of sale"
 
 for brandName, url in brands.iteritems():
     response = urllib.urlopen(url)
-    html = response.read()
+    sourceCdoe = response.read()
+    page = str(BeautifulSoup(sourceCdoe))
+    while True:
+        url, n = getURL(page)
+        page = page[n:]
+        if url:
+            if "sale" in url.lower():
+                print " " + brandName + ":  " + url
+        else:
+            break
+    # soup = BeautifulSoup(sourceCdoe)
+    # print soup.find('strike', {}).text
     wordDict = {}
     for word in saleWords:
         if not all and word == "sale":
             continue
-        wordCount = html.lower().count(word)
-        termsLineCount = html.lower().count((terms).lower())
+        wordCount = sourceCdoe.lower().count(word)
+        termsLineCount = sourceCdoe.lower().count((terms).lower())
         wordMatchCount = wordCount - termsLineCount
         wordDict[word] = wordMatchCount
     if sum(wordDict.values()) > 0:
