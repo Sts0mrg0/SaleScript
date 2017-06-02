@@ -13,7 +13,7 @@ def getURL(page):
     end_quote = page.find('"', start_quote + 1)
     url = page[start_quote + 1: end_quote]
     return url, end_quote
-        
+
 inShort = False
 all = False
 if (sys.argv).__contains__("a"):
@@ -60,7 +60,21 @@ brands = {
     "coach": "http://uk.coach.com/",
     "mulberry": "http://www.mulberry.com/",
     "Bally": "http://www.bally.co.uk/en_gb/home/",
-    "bv": "http://www.bottegaveneta.com/gb"
+    "bv": "http://www.bottegaveneta.com/gb",
+    "Evisu": "http://www.evisu.com/eu/",
+    "Nike men": "http://www.nike.com/gb/en_gb/c/men",
+    "balmain": "http://www.balmain.com/en_uk/",
+    "givenchy": "https://www.givenchy.com/",
+    "valentino": "https://www.valentino.com/gb",
+    "loewe": "http://www.loewe.com/eur/en/men",
+    "armani collezioni": "http://www.armani.com/gb/armanicollezioni/men",
+    "emporio armani": "http://www.armani.com/gb/emporioarmani/men",
+    "harveynichols": "http://www.harveynichols.com/",
+    "farfetch": "https://www.farfetch.com/uk/shopping/men/items.aspx",
+    "blood brother": "http://blood-brother.co.uk/",
+    "thom browne": "https://www.thombrowne.com/mens/",
+    "dsquared2": "http://www.dsquared2.com/gb/men",
+    "moncler": "http://store.moncler.com/gb"
     # "": "",
 }
 
