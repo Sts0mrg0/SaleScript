@@ -78,7 +78,7 @@ brands = {
     # "": "",
 }
 
-saleWords = ["/sale/", ">sale<", "reduction", "outlet", "sale", "% off"]
+saleWords = ["/sale/", ">sale<", "reduction", "outlet", "sale", "sale preview", "pre sale", "discount", "-sale" "% off"]
 
 terms = "Terms & Conditions of sale"
 
