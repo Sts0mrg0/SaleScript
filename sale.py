@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 import urllib
 import sys
 import re
@@ -22,6 +22,8 @@ if (sys.argv).__contains__("s"):
     inShort = True
 
 brands = {
+    "stuart weitzman": "http://eu.stuartweitzman.com/en/",
+    "mcm": "http://uk.mcmworldwide.com/en/home",
     "tods": "http://www.tods.com/en_gb/",
     "Ferragamo": "http://www.ferragamo.com/shop/en/uk",
     "Harrods": "http://www.harrods.com/",
@@ -56,7 +58,7 @@ brands = {
     "dents": "https://www.dents.co.uk/",
     "christian louboutin": "http://eu.christianlouboutin.com/uk_en/",
     "cl men": "http://eu.christianlouboutin.com/uk_en/homepage-1/men-collection.sourceCdoe",
-    "apc men": "http://www.apc.fr/wwuk/men.sourceCdoe",
+    "apc men": "https://www.apc.fr/wwuk/men.html",
     "coach": "http://uk.coach.com/",
     "mulberry": "http://www.mulberry.com/",
     "Bally": "http://www.bally.co.uk/en_gb/home/",
